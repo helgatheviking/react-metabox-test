@@ -1,0 +1,26 @@
+{
+  "name": "wc-mnm-bulk-discounts",
+  "title": "Mix and Match Products - Bulk Discounts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kathyisawesome/wc-mnm-bulk-discounts.git"
+  },
+  "homepage": "https://github.com/kathyisawesome/wc-mnm-bulk-discounts/",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "lint:js": "wp-scripts lint-js assets/src"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@wordpress/eslint-plugin": "^7.3.0",
+    "@wordpress/scripts": "^12.5.0"
+  },
+  "dependencies": {
+    "@woocommerce/components": "^5.1.2"
+  }
+}
