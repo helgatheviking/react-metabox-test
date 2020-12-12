@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WC_MNM_Bulk_Discounts {
+class React_Metabox {
 
 	/**
 	 * Plugin version.
@@ -198,4 +198,4 @@ class WC_MNM_Bulk_Discounts {
 	}
 
 }
-WC_MNM_Bulk_Discounts::init();
+React_Metabox::init();
