@@ -10,6 +10,6 @@ import { render } from '@wordpress/element';
 import './index.scss';
 
 wp.element.render(
-  <h1>__( 'I hate react', 'my-textdomain' )</h1>,
-  document.getElementById('wc_mnm_bulk_discount_data')
+  <h1>{__("I hate react", "my-textdomain")}</h1>,
+  document.getElementById("wc_mnm_bulk_discount_data")
 );
