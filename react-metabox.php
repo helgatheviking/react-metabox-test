@@ -73,10 +73,7 @@ class React_Metabox {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_scripts' ), 20 );
 		
 		// Display.
-		add_action( 'woocommerce_product_options_pricing', array( __CLASS__, 'discount_pricing_options' ) );
-
-		// Save discount data.
-		add_action( 'woocommerce_admin_process_product_object', array( __CLASS__, 'save_meta' ) );
+		add_action( 'woocommerce_product_options_pricing', array( __CLASS__, 'pricing_options' ) );
 
 		// Localization.
 		add_action( 'init', array( __CLASS__, 'localize_plugin' ) );
@@ -112,29 +109,31 @@ class React_Metabox {
 		 * Enqueue styles and scripts.
 		 */
 		if ( 'product' === $screen_id ) {
+			$script_path       = '/assets/build/metabox.js';
+			$script_asset_path = dirname( __FILE__ ) . '/assets/build/metabox.asset.php';
+			$script_asset      = file_exists( $script_asset_path )
+				? require( $script_asset_path )
+				: array( 'dependencies' => array(), 'version' => filemtime( $script_path ) );
+			$script_url = plugins_url( $script_path, __FILE__ );
 
-			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
-			$script_asset_path = self::plugin_url() . '/assets/build/admin.asset.php';
-
-			$script_info       = file_exists( $script_asset_path )
-            ? include $script_asset_path
-            : [ 'dependencies' => [], 'version' => self::$version ];
-
-			wp_enqueue_script(
-				'wc-mnm-bulk-discount-metabox',
-				self::plugin_url() . '/assets/build/admin.js',
-				$script_info['dependencies'],
-				$script_info['version'],
+			wp_register_script(
+				'react-metabox-example',
+				$script_url,
+				$script_asset['dependencies'],
+				$script_asset['version'],
 				true
 			);
 
-			wp_enqueue_style(
-				'wc-mnm-bulk-discount-admin-styles',
-				self::plugin_url() . '/assets/build/admin.css',
-				false, $script_info['version']
+			wp_register_style(
+				'react-metabox-example',
+				plugins_url( '/assets/build/style-metabox.css', __FILE__ ),
+				// Add any dependencies styles may have, such as wp-components.
+				array(),
+				filemtime( dirname( __FILE__ ) . '/assets/build/style-metabox.css' )
 			);
 
+			wp_enqueue_script( 'react-metabox-example' );
+			wp_enqueue_style( 'react-metabox-example' );
 		}	
 
 	}
@@ -143,52 +142,19 @@ class React_Metabox {
 	/**
 	 * Add quantity discount rules.
 	 */
-	public static function discount_pricing_options() {
-
-		global $product_object;
-
-		$discount_data_array  = $product_object->get_meta( '_wc_mnm_bulk_discount_data', true );
-
-		if ( ! is_array( $discount_data_array ) ) {
-			$discount_data_array = array(
-				array(
-					'min'    => '',
-					'max'    => '',
-					'amount' => '',
-				)
-			);
-		}
-
-		$json = json_encode( $discount_data_array );
-
+	public static function pricing_options() {
 		?>
 
-		<fieldset class="form-field _mnm_per_product_discount_field hide_if_static_pricing show_if_bulk_discount_mode" >
+		<fieldset class="form-field _react_metabox_example_field" >
 
-			<label><?php _e( 'Bulk Discounts', 'react-metabox' ); ?></label>
+			<label><?php _e( 'React Metabox', 'react-metabox' ); ?></label>
 
-			<div id="wc_mnm_bulk_discount_data" data-discountdata="<?php echo esc_attr( $json );?> "></div>
+			<div id="react-metabox-example-root"></div>
 
 		</fieldset>
 
 		<?php
 
-	}
-
-	/**
-	 * Save meta.
-	 *
-	 * @param  WC_Product  $product
-	 * @return void
-	 */
-	public static function save_meta( $product ) {
-
-		if ( ! empty( $_POST[ '_wc_mnm_bulk_discount_data' ] ) ) {
-			$input_data           = wc_clean( wp_unslash( $_POST[ '_wc_mnm_bulk_discount_data' ] ) );
-			$product->add_meta_data( '_wc_mnm_bulk_discount_data', $parsed_discount_data, true );
-		} else {
-			$product->delete_meta_data( '_wc_mnm_bulk_discount_data' );
-		}
 	}
 
 }

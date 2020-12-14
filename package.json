@@ -17,10 +17,8 @@
   "author": "",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@wordpress/eslint-plugin": "^7.3.0",
-    "@wordpress/scripts": "^12.5.0"
-  },
-  "dependencies": {
-    "@woocommerce/components": "^5.1.2"
+    "@wordpress/scripts": "^12.2.1",
+    "@woocommerce/eslint-plugin": "1.0.0-beta.0",
+    "@woocommerce/dependency-extraction-webpack-plugin": "1.0.1"
   }
 }
