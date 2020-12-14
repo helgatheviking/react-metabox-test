@@ -1,14 +1,14 @@
 {
-  "name": "wc-mnm-bulk-discounts",
-  "title": "Mix and Match Products - Bulk Discounts",
+  "name": "react-metabox-example",
+  "title": "React Metabox Example",
   "version": "1.0.0",
-  "description": "",
+  "description": "Use react to add Woo Component to product metabox",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kathyisawesome/wc-mnm-bulk-discounts.git"
+    "url": "https://github.com/helgatheviking/react-metabox-test.git"
   },
-  "homepage": "https://github.com/kathyisawesome/wc-mnm-bulk-discounts/",
+  "homepage": "https://github.com/helgatheviking/react-metabox-test/",
   "scripts": {
     "build": "wp-scripts build",
     "start": "wp-scripts start",
